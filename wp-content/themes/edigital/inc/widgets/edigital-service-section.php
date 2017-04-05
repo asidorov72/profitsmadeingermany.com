@@ -23,7 +23,7 @@ class EDigital_Service_Section extends WP_Widget {
             'classname' => 'edigital_service_section',
             'description' => __( 'Display posts from selected category as grid view.', 'edigital' )
         );
-        parent::__construct( 'edigital_service_section', __( 'EDigital : Service Section', 'edigital' ), $widget_ops );
+        parent::__construct( 'edigital_service_section', __( 'EDigital: Service Section', 'edigital' ), $widget_ops );
     }
 
 

@@ -23,7 +23,7 @@ class EDigital_Featured_Products extends WP_Widget {
             'classname' => 'edigital_featured_products',
             'description' => __( 'To show featured products of EDD.', 'edigital' )
         );
-        parent::__construct( 'edigital_featured_products', __( 'EDigital : Featured Products', 'edigital' ), $widget_ops );
+        parent::__construct( 'edigital_featured_products', __( 'EDigital: Featured Products', 'edigital' ), $widget_ops );
     }
 
     /**
@@ -111,7 +111,9 @@ class EDigital_Featured_Products extends WP_Widget {
                                 'terms'    => absint( $edigital_section_cat_id ),
                             ),
                         ),
-                        'posts_per_page' => absint( $edigital_section_post_count )
+                        'posts_per_page' => absint( $edigital_section_post_count ),
+						'orderby'        => 'menu_order',
+						'order'     	 => 'ASC'
                     );
         $featured_query = new WP_Query( $featured_args );
         echo $before_widget;
@@ -132,9 +134,11 @@ class EDigital_Featured_Products extends WP_Widget {
 
                     <div class="featured-items-wrapper mt-column-wrapper">
                         <?php
+						
                             if( $featured_query->have_posts() ) {
                                 while( $featured_query->have_posts() ) {
                                     $featured_query->the_post();
+							
                         ?>
                                     <div class="single-post-wrapper mt-column-3">
                                         <?php if( has_post_thumbnail() ) { ?>
