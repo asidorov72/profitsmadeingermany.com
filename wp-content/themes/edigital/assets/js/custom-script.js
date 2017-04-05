@@ -51,6 +51,7 @@ jQuery(document).ready(function($) {
     // search js
     jQuery('.header-search-wrapper .search-main').click(function() {
         jQuery('.header-search-wrapper .search-form-main').addClass('active');
+        jQuery('.header-search-wrapper .search-form-main .search-field').focus();
     });
 
     jQuery('.header-search-wrapper .close').click(function() {

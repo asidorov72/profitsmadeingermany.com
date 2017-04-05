@@ -22,7 +22,7 @@ class Edigital_Testimonials extends WP_Widget {
             'classname' => 'edigital_testimonials',
             'description' => __( 'This widget for showing posts from selected category as testimonials layout.', 'edigital' )
         );
-        parent::__construct( 'edigital_testimonials', __( 'Edigital : Testimonials', 'edigital' ), $widget_ops );
+        parent::__construct( 'edigital_testimonials', __( 'Edigital: Testimonials', 'edigital' ), $widget_ops );
     }
 
     /**

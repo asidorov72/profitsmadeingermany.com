@@ -131,7 +131,9 @@ if( ! function_exists( 'edigital_dynamic_styles' ) ):
         $output_css .=".edigital_call_to_action .edigital-widget-wrapper::before{
                         background:". edigital_hex2rgba( $edigital_skin_color, '0.85' ) ."}\n";
 
-        wp_add_inline_style( 'edigital-style', $output_css );
+        $refine_output_css = edigital_css_strip_whitespace( $output_css );
+
+        wp_add_inline_style( 'edigital-style', $refine_output_css );
     }
 endif;
 

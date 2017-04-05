@@ -23,7 +23,7 @@ class EDigital_Call_To_Action extends WP_Widget {
             'classname' => 'edigital_call_to_action',
             'description' => __( 'Display content as Call To Action.', 'edigital' )
         );
-        parent::__construct( 'edigital_call_to_action', __( 'EDigital : Call To Action', 'edigital' ), $widget_ops );
+        parent::__construct( 'edigital_call_to_action', __( 'EDigital: Call To Action', 'edigital' ), $widget_ops );
     }
 
     /**

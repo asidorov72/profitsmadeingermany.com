@@ -28,6 +28,10 @@ define('DB_USER', 'root');
 /** MySQL database password */
 define('DB_PASSWORD', '');
 
+/** Defining WP_HOME and WP_SITEURL */
+define('WP_HOME', 'http://profitsmadeingermany.com/');
+define('WP_SITEURL', 'http://profitsmadeingermany.com/');
+
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
 

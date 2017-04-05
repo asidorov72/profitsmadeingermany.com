@@ -13,7 +13,7 @@
 
 $footer_logo_option = get_theme_mod( 'footer_logo_option', 'show' );
 $footer_social_option = get_theme_mod( 'footer_social_media_option', 'show' );
-$footer_copyright_text = get_theme_mod( 'site_copyright_text', '2016 Edigital' );
+$footer_copyright_text = get_theme_mod( 'site_copyright_text', '2017 Edigital' );
 
 ?>
     <?php if ( !is_page_template('templates/home-template.php') ) { ?>

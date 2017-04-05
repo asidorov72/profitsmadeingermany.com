@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: _s 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/tags/_s\n"
-"POT-Creation-Date: 2017-01-25 04:38+0000\n"
+"POT-Creation-Date: 2017-03-24 03:29+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -99,7 +99,7 @@ msgstr ""
 msgid "0"
 msgstr ""
 
-#: inc/template-tags.php:42
+#: inc/template-tags.php:42 inc/about-theme/edigital-about.php:491
 msgid "1"
 msgstr ""
 
@@ -172,6 +172,259 @@ msgstr ""
 msgid "Home Page"
 msgstr ""
 
+#: inc/about-theme/edigital-about.php:33 inc/about-theme/edigital-about.php:33
+#: inc/about-theme/edigital-about.php:110
+msgid "About"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:69
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:73
+msgid "Cheatin&#8217; huh?"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:87
+msgid "Dismiss"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:88
+#, php-format
+msgid ""
+"Welcome! Thank you for choosing edigital! To fully take advantage of the "
+"best our theme can offer please make sure you visit our %swelcome page%s."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:90
+msgid "Get started with edigital"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:125
+msgid "Theme Info"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:127
+msgid "View Demo"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:129
+#: inc/about-theme/edigital-about.php:202
+msgid "View PRO version"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:131
+msgid "Rate this theme"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:140
+msgid "Free Vs Pro"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:144
+msgid "More Themes"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:148
+msgid "Changelog"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:182
+msgid "Theme Customizer"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:183
+msgid "All Theme Options are available via Customize screen."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:184
+#: inc/about-theme/edigital-about.php:279
+msgid "Customize"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:188
+#: inc/about-theme/edigital-about.php:190
+msgid "Documentation"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:189
+msgid "Please view our documentation page to setup the theme."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:194
+msgid "Got theme support question?"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:195
+msgid "Please put it in our dedicated support forum."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:196
+msgid "Support"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:200
+msgid "Need more features?"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:201
+#: inc/about-theme/edigital-about.php:441
+msgid "Upgrade to PRO version for more exciting features."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:206
+msgid "Have you need customization?"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:207
+msgid "Please send message with your requirement."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:208
+msgid "Customization"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:214
+#: inc/about-theme/edigital-about.php:222
+msgid "Translate"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:218
+msgid "Click below to translate this theme into your own language."
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:234
+msgid "Return to Updates"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:234
+msgid "Return to Dashboard &rarr; Updates"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:237
+msgid "Go to Dashboard &rarr; Home"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:237
+msgid "Go to Dashboard"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:277
+msgid "Active"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:315
+msgid "Activate"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:324
+msgid "Install Now"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:327
+msgid "Live Preview"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:389
+msgid "View changelog below:"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:446
+msgid "Features"
+msgstr ""
+
+#. Name of the theme
+#: inc/about-theme/edigital-about.php:447
+msgid "EDigital"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:448
+msgid "EDigital Pro"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:453
+msgid "Price"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:454
+msgid "Free"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:455
+msgid "$55"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:465
+msgid "WooCommerce Plugin Compatible"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:470
+msgid "Easy Digital Download Plugin Compatible"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:475
+msgid "Top Header Section"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:480
+msgid "Ticker Section"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:485
+msgid "Pre Loaders"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:490
+msgid "Header Layouts"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:492
+msgid "3"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:495
+#: inc/customizer/additional-panel.php:117
+msgid "Header Sticky"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:500
+msgid "Google Fonts"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:502
+msgid "600+"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:505
+msgid "Typography Options"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:510
+#: inc/about-theme/edigital-about.php:515
+msgid "No. of Widgets"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:511
+#: inc/about-theme/edigital-about.php:516
+msgid "7"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:512
+msgid "11"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:517
+msgid "14"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:520
+msgid "Footer Widget Area"
+msgstr ""
+
+#: inc/about-theme/edigital-about.php:529
+msgid "View Pro"
+msgstr ""
+
 #: inc/customizer/additional-panel.php:32
 msgid "Additional Settings"
 msgstr ""
@@ -206,10 +459,6 @@ msgstr ""
 
 #: inc/customizer/additional-panel.php:93
 msgid "Header Settings"
-msgstr ""
-
-#: inc/customizer/additional-panel.php:117
-msgid "Header Sticky"
 msgstr ""
 
 #: inc/customizer/additional-panel.php:118
@@ -266,7 +515,7 @@ msgid "Show/hide social media icons in footer section."
 msgstr ""
 
 #: inc/customizer/footer-panel.php:117
-msgid "2016 Edigital"
+msgid "2017 Edigital"
 msgstr ""
 
 #: inc/customizer/footer-panel.php:126
@@ -417,7 +666,7 @@ msgid "Display content as Call To Action."
 msgstr ""
 
 #: inc/widgets/edigital-call-to-action.php:26
-msgid "EDigital : Call To Action"
+msgid "EDigital: Call To Action"
 msgstr ""
 
 #: inc/widgets/edigital-call-to-action.php:39
@@ -442,7 +691,7 @@ msgid "To show featured products of EDD."
 msgstr ""
 
 #: inc/widgets/edigital-featured-products.php:26
-msgid "EDigital : Featured Products"
+msgid "EDigital: Featured Products"
 msgstr ""
 
 #: inc/widgets/edigital-featured-products.php:36
@@ -516,7 +765,7 @@ msgid "Display posts from selected category as grid view."
 msgstr ""
 
 #: inc/widgets/edigital-service-section.php:26
-msgid "EDigital : Service Section"
+msgid "EDigital: Service Section"
 msgstr ""
 
 #: inc/widgets/edigital-single-page.php:24
@@ -541,7 +790,7 @@ msgid ""
 msgstr ""
 
 #: inc/widgets/edigital-testimonials.php:25
-msgid "Edigital : Testimonials"
+msgid "Edigital: Testimonials"
 msgstr ""
 
 #: inc/widgets/edigital-widget-fields.php:149
@@ -566,10 +815,6 @@ msgstr ""
 msgid "Home Page Fullwidth Area"
 msgstr ""
 
-#. Name of the theme
-msgid "EDigital"
-msgstr ""
-
 #. Description of the theme
 msgid ""
 "Edigital is a Multipurpose theme mainly designed for Easy Digital Downloads "
@@ -578,14 +823,19 @@ msgid ""
 "including items such as stock photos, plugins, softwares, audio files , "
 "videos, music, digital art such as icons, templates, themes, or photos etc."
 "You can also use this theme as a business or blogging theme. Get free "
-"support at https://mysterythemes.com/support/forum/themes/free-themes/ and "
-"check the demo at http://demo.mysterythemes.com/edigital/"
+"support at https://mysterythemes.com/support/forum/themes/free-themes/ , "
+"check the docs at http://docs.mysterythemes.com/edigital/ and check the demo "
+"at http://demo.mysterythemes.com/edigital/"
 msgstr ""
 
 #. URI of the theme
-msgid "http://demo.mysterythemes.com/edigital"
+msgid "https://mysterythemes.com/wp-themes/edigital/"
 msgstr ""
 
 #. Author of the theme
 msgid "Mystery Themes"
+msgstr ""
+
+#. Author URI of the theme
+msgid "https://mysterythemes.com"
 msgstr ""

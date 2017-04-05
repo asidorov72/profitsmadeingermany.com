@@ -114,7 +114,7 @@ if( ! function_exists( 'edigital_footer_panel_register' ) ):
         $wp_customize->add_setting(
             'site_copyright_text', 
                 array(
-                    'default' => esc_html__( '2016 Edigital', 'edigital' ),
+                    'default' => esc_html__( '2017 Edigital', 'edigital' ),
                     'sanitize_callback' => 'wp_kses_post',
                     'transport' => 'postMessage'
                 )

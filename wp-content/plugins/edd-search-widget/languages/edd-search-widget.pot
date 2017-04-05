@@ -1,0 +1,220 @@
+# This file is distributed under the same license as the Easy Digital Downloads Search Widget package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2013-04-29 12:12:32+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: GlotPress/0.1\n"
+"Project-Id-Version: Easy Digital Downloads Search Widget\n"
+
+#: edd-search-widget.php:0
+msgid "1.1.0"
+msgstr ""
+
+#: includes/eddsw-admin.php:209
+msgid "Plugin"
+msgstr ""
+
+#: includes/eddsw-admin.php:215
+msgid " Provided Shortcode by the plugin: %s"
+msgstr ""
+
+#: includes/eddsw-admin.php:217
+msgid "Supporting the following parameters"
+msgstr ""
+
+#: includes/eddsw-admin.php:218
+msgid "Label text before the input field"
+msgstr ""
+
+#: includes/eddsw-admin.php:219
+msgid "Input field placeholder text"
+msgstr ""
+
+#: includes/eddsw-admin.php:220
+msgid "Submit button text"
+msgstr ""
+
+#: includes/eddsw-admin.php:221
+msgid "Can be a custom class, added to the wrapper %s container"
+msgstr ""
+
+#: includes/eddsw-admin.php:243
+msgid "More about the plugin author"
+msgstr ""
+
+#: includes/eddsw-admin.php:244
+msgid "Social:"
+msgstr ""
+
+#: includes/eddsw-shortcode-search.php:47 includes/eddsw-widget-search.php:224
+msgid "Search downloads&#x2026;"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:249 includes/eddsw-widget-search.php:298
+msgid "Add some additional %s info. NOTE: Just leave blank to not use at all."
+msgstr ""
+
+#: includes/eddsw-widget-search.php:256
+msgid "Label string before search input field:"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:258 includes/eddsw-widget-search.php:266
+msgid "NOTE: Leave empty to not use/ display this string!"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:264
+msgid "Placeholder string for search input field:"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:272
+msgid "Search button string:"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:274
+msgid "NOTE: Displaying may depend on your theme settings/ styles."
+msgstr ""
+
+#: includes/eddsw-widget-search.php:280
+msgid "Where to display this widget?"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:283
+msgid "Global (default)"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:284 includes/eddsw-widget-search.php:288
+#: includes/eddsw-widget-search.php:289
+msgid "Single %s"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:284
+msgid "Downloads"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:285
+msgid "Downloads Archives"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:286
+msgid "Downloads Taxonomies"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:287
+msgid "All Downloads (EDD) Instances"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:288
+msgid "Posts"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:289
+msgid "Pages"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:290
+msgid "Both, Single Posts & Pages"
+msgstr ""
+
+#: edd-search-widget.php:0
+msgid "David Decker - DECKERWEB"
+msgstr ""
+
+#: edd-search-widget.php:0
+msgid "http://deckerweb.de/"
+msgstr ""
+
+#: includes/eddsw-admin.php:64
+msgid "Go to the Widgets settings page"
+msgstr ""
+
+#: includes/eddsw-admin.php:65
+msgid "Widgets"
+msgstr ""
+
+#: includes/eddsw-admin.php:100 includes/eddsw-admin.php:225
+msgid "FAQ"
+msgstr ""
+
+#: includes/eddsw-admin.php:102 includes/eddsw-admin.php:225
+msgid "Support"
+msgstr ""
+
+#: includes/eddsw-admin.php:106 includes/eddsw-admin.php:225
+msgid "Donate"
+msgstr ""
+
+#: includes/eddsw-shortcode-search.php:48 includes/eddsw-widget-search.php:225
+#: includes/eddsw-widget-search.php:249 includes/eddsw-widget-search.php:298
+msgid "Search"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:242
+msgid "Title:"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:248
+msgid "Optional intro text:"
+msgstr ""
+
+#: includes/eddsw-widget-search.php:297
+msgid "Optional outro text:"
+msgstr ""
+
+#: edd-search-widget.php:0 includes/eddsw-admin.php:209
+msgid "Easy Digital Downloads Search Widget"
+msgstr ""
+
+#: edd-search-widget.php:0
+msgid "http://genesisthemes.de/en/wp-plugins/edd-search-widget/"
+msgstr ""
+
+#: edd-search-widget.php:0
+msgid "This Plugin adds a search widget for the Easy Digital Downloads plugin post type independent from the regular WordPress search."
+msgstr ""
+
+#: includes/eddsw-widget-search.php:44
+msgid "Search box for the Easy Digital Downloads plugin. Search in downloads only. (No mix up with regular WordPress search!)"
+msgstr ""
+
+#: includes/eddsw-shortcode-search.php:46 includes/eddsw-widget-search.php:223
+msgid "Search downloads for:"
+msgstr ""
+
+#: includes/eddsw-admin.php:211 includes/eddsw-widget-search.php:55
+msgid "EDD Downloads Search"
+msgstr ""
+
+#: includes/eddsw-admin.php:104 includes/eddsw-admin.php:225
+msgid "Translations"
+msgstr ""
+
+#: includes/eddsw-admin.php:211
+msgid "Added Widget by the plugin: %s"
+msgstr ""
+
+#: includes/eddsw-admin.php:212
+msgid "Download"
+msgstr ""
+
+#: includes/eddsw-admin.php:213
+msgid "Please note: This plugin does not mix up its displayed search results with WordPress built-in search. It is limited to the Easy Digital Downloads post type. For enhanced styling of the widget and/or the search results please have a look on the FAQ page linked below."
+msgstr ""
+
+#: includes/eddsw-admin.php:224
+msgid "Important plugin links:"
+msgstr ""
+
+#: includes/eddsw-admin.php:225
+msgid "Plugin Homepage"
+msgstr ""
+
+#: includes/eddsw-admin.php:186
+msgid "EDD Search Widget"
+msgstr ""
+
+#: includes/eddsw-admin.php:212
+msgid "It searches only in the post type %s and outputs the results formatted like the other search results (of WordPress)."
+msgstr ""
