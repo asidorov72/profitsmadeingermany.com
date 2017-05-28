@@ -202,7 +202,7 @@ background: rgba(200,200,200,0.5) url("../img/ajax-loader-big.gif") center cente
 .cmvl-channel-paybox-form label {display: block; font-weight: normal;}
 .cmvl-channel-paybox-form label input {margin-right: 0.5em; vertical-align: baseline;}
 .cmvl-channel-paybox-form select {margin: 0 0.5em; vertical-align: center !important;}
-.cmvl-channel-paybox-form input[type=submit] {vertical-align: center !important; border: none !important; background: #444499; border-radius: 5px 5px;
+/*.cmvl-channel-paybox-form input[type=submit] {vertical-align: center !important; border: none !important; background: #444499; border-radius: 5px 5px;
 	font: bold 16px 'Open Sans', Arial, sans-serif; color: white; padding: 0.5em 2em; cursor: pointer;}
 td .cmvl-channel-paybox-form input[type=submit] {font-size: 90%; padding: 0.5em 1em !important;}
 .cmvl-channel-payment-buttons {margin: 0.8em 0;}
@@ -210,7 +210,7 @@ td .cmvl-channel-paybox-form input[type=submit] {font-size: 90%; padding: 0.5em 
 .cmvl-channel-payment-buttons ul {margin: 1em 0 0 0 !important;}
 .cmvl-channel-payment-buttons li {display: inline-block; margin: 0 !important;}
 .cmvl-channel-payment-buttons a {padding: 0 0.5em;}
-.cmvl-channel-paybox-costs {margin-bottom: 1em;}
+.cmvl-channel-paybox-costs {margin-bottom: 1em;}*/
 
 .cmvl-toast {position: fixed; top: 40%; width: 20%; max-width: 400px; min-width: 200px; overflow: hidden; margin: 0 auto;
 	left: 0; right: 0; z-index: 999999; background: rgba(0,0,0,0.7); color: white; font: normal 100% sans-serif;
