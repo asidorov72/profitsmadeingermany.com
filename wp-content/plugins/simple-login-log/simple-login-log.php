@@ -4,7 +4,7 @@
   Plugin URI: http://simplerealtytheme.com
   Description: This plugin keeps a log of WordPress user logins. Offers user filtering and export features.
   Author: Max Chirkov
-  Version: 1.1.1
+  Version: 1.1.2
   Author URI: http://SimpleRealtyTheme.com
  */
 
@@ -15,7 +15,7 @@ if( !class_exists( 'SimpleLoginLog' ) )
 
  class SimpleLoginLog
  {
-    private $db_ver = "1.2";
+    private $db_ver = "1.3";
     public $table = 'simple_login_log';
     private $log_duration = null; //days
     private $opt_name = 'simple_login_log';
@@ -190,7 +190,7 @@ if( !class_exists( 'SimpleLoginLog' ) )
         {
             $start = time();
             wp_schedule_event($start, 'daily', 'truncate_sll');
-        }elseif( !$log_duration || 0 == $log_duration)
+        } elseif( !$log_duration || 0 == $log_duration)
         {
             $timestamp = wp_next_scheduled( 'truncate_sll' );
             (!$timestamp) ? false : wp_unschedule_event($timestamp, 'truncate_sll');
@@ -199,7 +199,8 @@ if( !class_exists( 'SimpleLoginLog' ) )
     }
 
 
-    function deactivation(){
+    function deactivation()
+    {
         wp_clear_scheduled_hook('truncate_sll');
 
         //clean up old cron jobs that no longer exist
@@ -262,7 +263,7 @@ if( !class_exists( 'SimpleLoginLog' ) )
                         id INT( 11 ) NOT NULL AUTO_INCREMENT ,
                         uid INT( 11 ) NOT NULL ,
                         user_login VARCHAR( 60 ) NOT NULL ,
-                        user_role VARCHAR( 30 ) NOT NULL ,
+                        user_role VARCHAR( 255 ) NOT NULL ,
                         time DATETIME DEFAULT '0000-00-00 00:00:00' NOT NULL ,
                         ip VARCHAR( 100 ) NOT NULL ,
                         login_result VARCHAR (1) ,
@@ -284,7 +285,7 @@ if( !class_exists( 'SimpleLoginLog' ) )
 
     /**
     * Checks if the installed database version is the same as the db version of the current plugin
-    * calles the version specific function if upgrade is required
+    * calls the version specific function if upgrade is required
     */
     function update_db_check()
     {
@@ -297,6 +298,9 @@ if( !class_exists( 'SimpleLoginLog' ) )
                     break;
                 case "1.2":
                     $this->db_update_1_2();
+                    break;
+                case "1.3":
+                    $this->db_update_1_3();
                     break;
             }
         }
@@ -367,6 +371,31 @@ if( !class_exists( 'SimpleLoginLog' ) )
 
         }
     }
+
+
+     function db_update_1_3()
+     {
+         /**
+          * modifies column data length for user_role
+          */
+         global $wpdb;
+
+         $sql = "SELECT * FROM {$this->table} LIMIT 1";
+         $fields = $wpdb->get_row($sql, 'ARRAY_A');
+
+         if( !$fields ){
+             $this->install();
+             return;
+         }
+
+         $sql = "ALTER TABLE {$this->table} MODIFY user_role varchar(255) NOT NULL;";
+         $insert = $wpdb->query( $sql );
+
+         //update version record if it has been updated
+         if( false !== $insert )
+             update_option( "sll_db_ver", $this->db_ver );
+
+     }
 
 
     //Initializing Settings
@@ -485,7 +514,7 @@ if( !class_exists( 'SimpleLoginLog' ) )
         if( isset($_GET['user_role']) && '' != $_GET['user_role'] )
         {
             $user_role = esc_attr( $_GET['user_role'] );
-            $where['user_role'] = "user_role = '{$user_role}'";
+            $where['user_role'] = "user_role LIKE '%{$user_role}%'";
         }
         if( isset($_GET['result']) && '' != $_GET['result'] )
         {
@@ -514,17 +543,30 @@ if( !class_exists( 'SimpleLoginLog' ) )
     {
         global $wpdb;
 
+        $orderCol = array(
+            'uid' => 'uid',
+            'user_login' => 'user_login',
+            'time' => 'time',
+            'ip' => 'ip'
+        );
+        $orderDir = array(
+            'asc' => 'ASC',
+            'desc'=> 'DESC'
+        );
+
         $where = '';
 
-        $where = $this->make_where_query();
+        $orderby = isset($orderCol[$orderby]) ? $orderCol[$orderby] : 'time';
+        $order   = isset($orderDir[$order]) ? $orderDir[$order] : 'DESC';
 
-        $orderby = (!isset($orderby) || $orderby == '') ? 'time' : $orderby;
-        $order = (!isset($order) || $order == '') ? 'DESC' : $order;
+        $where = $this->make_where_query();
 
         if( is_array($where) && !empty($where) )
             $where = ' WHERE ' . implode(' AND ', $where);
 
         $sql = "SELECT * FROM $this->table" . $where . " ORDER BY {$orderby} {$order} " . 'LIMIT ' . $limit . ' OFFSET ' . $offset;
+        var_dump($sql);
+
         $data = $wpdb->get_results($sql, 'ARRAY_A');
 
         return $data;
@@ -787,10 +829,17 @@ class SLL_List_Table extends WP_List_Table
                 if( !$item['uid'] )
                     return;
 
+                global $wp_roles;
+
                 $user = new WP_User( $item['uid'] );
-                if ( !empty( $user->roles ) && is_array( $user->roles ) ) {
-                    foreach($user->roles as $role){
-                        $roles[] = "<a href='" . add_query_arg( array('user_role' => $role), menu_page_url('login_log', false) ) . "' title='" . __('Filter log by User Role', 'sll') . "'>{$role}</a>";
+                if ( !empty( $user->roles ) && is_array( $user->roles ) )
+                {
+                    foreach($user->roles as $role)
+                    {
+
+                        $roleName = isset($wp_roles->roles[$role]['name']) ? $wp_roles->roles[$role]['name'] : $role;
+
+                        $roles[] = "<a href='" . add_query_arg( array('user_role' => $role), menu_page_url('login_log', false) ) . "' title='" . __('Filter log by User Role', 'sll') . "'>{$roleName}</a>";
                     }
                     return implode(', ', $roles);
                 }

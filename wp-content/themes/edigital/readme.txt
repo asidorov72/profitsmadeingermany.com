@@ -35,6 +35,10 @@ Edigital is a Multipurpose theme mainly designed for Easy Digital Downloads Plug
 
 == Changelog ==
 
+= 1.0.9 =
+    * Added TGM to get recommended plugin easily.
+    * Fixed minor bugs.
+    
 = 1.0.8 =
     * Fixed gallery layout on single post.
     * Added function to reduce white space on inline CSS.

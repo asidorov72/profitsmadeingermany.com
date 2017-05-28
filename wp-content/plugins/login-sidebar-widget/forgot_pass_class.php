@@ -15,7 +15,7 @@ class afo_forgot_pass_class {
         	<?php $this->error_message();?>
 			<div class="forgot-pass-form-group">
 			<label for="email"><?php _e('Email','login-sidebar-widget');?> </label>
-			<input type="email" name="user_username" required="required"/>
+			<input type="email" name="userusername" required="required"/>
 			</div>
 			
 			<div class="forgot-pass-form-group"><input name="forgot" type="submit" value="<?php _e('Submit','login-sidebar-widget');?>" /></div>
@@ -99,12 +99,12 @@ function forgot_pass_validate(){
 	
 		global $wpdb;
 		$msg = '';
-		if(empty($_POST['user_username'])) {
+		if(empty($_POST['userusername'])) {
 			$_SESSION['reg_msg_class'] = 'error_wid_login';
 			$msg .= __('Email is empty!','login-sidebar-widget');
 		}
 		
-		$user_username = esc_sql(trim(sanitize_text_field($_POST['user_username'])));
+		$user_username = esc_sql(trim(sanitize_text_field($_POST['userusername'])));
 		
 		$user_data = get_user_by('email', $user_username);
 		if(empty($user_data)) { 
@@ -150,5 +150,3 @@ function forgot_pass_validate(){
 		}
 	}
 }
-	
-add_action( 'init', 'forgot_pass_validate' );

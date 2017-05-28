@@ -167,23 +167,7 @@ require get_template_directory() . '/inc/metaboxes/edigital-post-metabox.php';
  */
 require get_template_directory(). '/inc/about-theme/edigital-about.php';
 
-
-
-
-/* EDD Ordering by menu_order field */
-function my_child_theme_edd_download_supports( $supports ) {
-	// add page-attributes
-	$add_support = array( 'page-attributes' );
-	// merge it back with the original array
-	return array_merge( $add_support, $supports );
-}
-add_filter( 'edd_download_supports', 'my_child_theme_edd_download_supports' );
-
-function my_child_theme_edd_downloads_query( $query, $atts ) {
-	// modify order and orderby to suit simple page ordering plugin
-	$query['orderby']	= 'menu_order';
-	$query['order'] 	= 'ASC';
-
-	return $query;
-}
-add_filter( 'edd_downloads_query', 'my_child_theme_edd_downloads_query', 10, 2 );
+/**
+ * Load TGM
+ */
+require get_template_directory() . '/inc/tgm/edigital-tgm.php';

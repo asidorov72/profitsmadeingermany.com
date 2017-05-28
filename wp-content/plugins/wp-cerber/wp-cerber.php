@@ -5,7 +5,7 @@
 	Description: Protects site from brute force attacks, bots and hackers. Antispam protection with reCAPTCHA. Comprehensive control of user activity. Restrict login by IP access lists. Limit login attempts. Feel free to contact developer on the site <a href="http://wpcerber.com">wpcerber.com</a>.
 	Author: Gregory
 	Author URI: http://wpcerber.com
-	Version: 4.5
+	Version: 4.7.7
 	Text Domain: wp-cerber
 	Domain Path: /languages
 	Network: true
@@ -59,7 +59,7 @@
 // If this file is called directly, abort executing.
 if ( ! defined( 'WPINC' ) ) { exit; }
 
-define( 'CERBER_VER', '4.5' );
+define( 'CERBER_VER', '4.7.7' );
 define( 'CERBER_LOG_TABLE', 'cerber_log' );
 define( 'CERBER_ACL_TABLE', 'cerber_acl' );
 define( 'CERBER_BLOCKS_TABLE', 'cerber_blocks' );
@@ -98,8 +98,12 @@ class WP_Cerber {
 	private $status;
 	private $options;
 	private $processed = null; // Important, that allows Cerber not to process an IP twice
-	private $recaptcha = null; // Can recaptcha be verified with current request
-	private $recaptcha_verified = null; // Is recaptcha verified successfully with current request
+
+	private $recaptcha = null; // Can recaptcha be verified with a current request
+	private $recaptcha_verified = null; // Is recaptcha successfully verified with a current request
+	public $recaptcha_here = null; // Is recaptcha widget enabled on the currently displayed page
+
+	public $garbage = false; // Garbage has been deleted
 
 	final function __construct() {
 
@@ -243,6 +247,7 @@ class WP_Cerber {
 	 *
 	 */
 	final public function reCaptchaInit(){
+
 		if ( $this->status == 4 || empty( $this->options['sitekey'] ) || empty( $this->options['secretkey'] )) return;
 
 		// Native WP forms
@@ -250,6 +255,11 @@ class WP_Cerber {
 			global $wp_cerber;
 			$wp_cerber->reCaptcha( 'widget', 'recaplogin' );
 		} );
+		add_filter( 'login_form_middle', function ( $value ) {
+			global $wp_cerber;
+			$value .= $wp_cerber->reCaptcha( 'widget', 'recaplogin', false );
+			return $value;
+		});
 		add_action( 'lostpassword_form', function () {
 			global $wp_cerber;
 			$wp_cerber->reCaptcha( 'widget', 'recaplost' );
@@ -260,10 +270,38 @@ class WP_Cerber {
 				$wp_cerber->reCaptcha( 'widget', 'recapreg' );
 			}
 		} );
-		add_filter( 'login_form_middle', function ( $value ) {
-			global $wp_cerber;
-			$value .= $wp_cerber->reCaptcha( 'widget', 'recaplogin', false );
+
+		add_filter( 'comment_form_submit_field', function ( $value ) {
+			global $wp_cerber, $post;
+			$au = $wp_cerber->getSettings('recapcomauth');
+			if (!$au || ($au && !is_user_logged_in())) {
+				if (!empty($_COOKIE["cerber-recaptcha-id"]) && $_COOKIE["cerber-recaptcha-id"] == $post->ID){
+				    echo '<div id="cerber-recaptcha-msg">'. __( 'ERROR:', 'wp-cerber' ) .' '. $wp_cerber->reCaptchaMsg('comment').'</div>';
+				    echo '<script type="text/javascript">document.cookie = "the-recaptcha-id=0";</script>';
+                }
+			    $wp_cerber->reCaptcha( 'widget', 'recapcom' );
+            }
 			return $value;
+		} );
+		// $approved = apply_filters( 'pre_comment_approved', $approved, $commentdata );
+		add_action( 'pre_comment_on_post', function ( $comment_post_ID ) {
+			global $wp_cerber;
+
+			if ($wp_cerber->getSettings('recapcomauth') && is_user_logged_in()) return;
+
+			if ( ! $wp_cerber->reCaptchaValidate('comment', true) ) {
+				cerber_log( 40 );
+				setcookie('cerber-recaptcha-id', $comment_post_ID, time() + 60, '/');
+				$comments = get_comments( array( 'number' => '1', 'post_id' => $comment_post_ID ) );
+				if ($comments) {
+					$loc = get_comment_link($comments[0]->comment_ID);
+				}
+				else {
+				    $loc = get_permalink($comment_post_ID).'#cerber-recaptcha-msg';
+                }
+				wp_safe_redirect( $loc );
+				exit;
+			}
 		});
 
 		// Support for WooCommerce forms: @since 3.8
@@ -337,7 +375,7 @@ class WP_Cerber {
 		$ret     = '';
 
 		switch ( $part ) {
-			case 'style': // for default WP forms only - fit it in width nicely.
+			case 'style': // for default login WP form only - fit it in width nicely.
 				?>
 				<style type="text/css" media="all">
 					#rc-imageselect, .g-recaptcha {
@@ -355,12 +393,16 @@ class WP_Cerber {
 				break;
 			case 'widget':
 				if ( ! empty( $this->options[ $option ] ) ) {
-					$lang = get_bloginfo( 'language' );
-					if ( $lang == 'en-US' ) {
-						$lang = 'en';
+					$this->recaptcha_here = true;
+
+					//if ($this->options['invirecap']) $ret = '<div data-size="invisible" class="g-recaptcha" data-sitekey="' . $sitekey . '" data-callback="now_submit_the_form" id="cerber-recaptcha" data-badge="bottomright"></div>';
+					if ($this->options['invirecap']) {
+					    $ret = '<span class="cerber-form-marker"></span><div data-size="invisible" class="g-recaptcha" data-sitekey="' . $sitekey . '" data-callback="now_submit_the_form" id="cerber-recaptcha" data-badge="bottomright"></div>';
 					}
-					$ret = '<div class="g-recaptcha" data-sitekey="' . $sitekey . '"></div>';
-					$ret .= '<script src = "https://www.google.com/recaptcha/api.js?hl=' . $lang . '" async defer></script>';
+					else $ret = '<span class="cerber-form-marker"></span><div class="g-recaptcha" data-sitekey="' . $sitekey . '" data-callback="form_button_enabler" id="cerber-recaptcha"></div>';
+
+					//$ret = '<span class="cerber-form-marker g-recaptcha"></span>';
+
 				}
 				break;
 		}
@@ -407,9 +449,10 @@ class WP_Cerber {
 			'lostpassword' => 'recaplost',
 			'register'     => 'recapreg',
 			'login'        => 'recaplogin',
+			'comment'      => 'recapcom',
 			'woologin'     => 'recapwoologin',
-			'woolost'     => 'recapwoolost',
-			'wooreg'     => 'recapwooreg',
+			'woolost'      => 'recapwoolost',
+			'wooreg'       => 'recapwooreg',
 		);
 
 		if ( isset( $forms[ $form ] ) ) {
@@ -512,6 +555,12 @@ class WP_Cerber {
 		}
 		return false;
 	}
+	final public function deleteGarbage() {
+		global $wpdb;
+		if ($this->garbage) return;
+		$wpdb->query( 'DELETE FROM ' . CERBER_BLOCKS_TABLE . ' WHERE block_until < ' . time() );
+		$this->garbage = true;
+	}
 }
 
 global $wp_cerber;
@@ -569,7 +618,6 @@ function cerber_login_head() {
 	global $error, $wp_cerber;
 
 	$wp_cerber->reCaptcha( 'style' );
-	//$wp_cerber->reCaptcha( 'JS' );
 
 	if ( $_SERVER['REQUEST_METHOD'] != 'GET' ) {
 		return;
@@ -1217,15 +1265,9 @@ function cerber_block_add( $ip, $reason_id = 1, $details = '', $duration = null 
 	$ip_address = $ip;
 
 	if ( $wp_cerber->getSettings( 'cerberlab' ) ) {
-		$wpdb->insert( CERBER_LAB_TABLE, array(
-			'ip'        => $ip,
-			'reason_id' => $reason_id,
-			'details'   => $details,
-			'stamp'     => time(),
-		), array( '%s', '%d', '%s', '%d' ) );
+		lab_save_push( $ip, $reason_id, $details );
 	}
 
-	//if (cerber_get_options('subnet')) {
 	if ( $wp_cerber->getSettings( 'subnet' ) ) {
 		$ip       = cerber_get_subnet( $ip );
 		$activity = 11;
@@ -1237,7 +1279,6 @@ function cerber_block_add( $ip, $reason_id = 1, $details = '', $duration = null 
 		return false;
 	}
 
-	//$reason = cerber_get_reason( $reason_id ) . ': <b>' . $details . '</b>';
 	$reason = cerber_get_reason( $reason_id );
 	if ($details) $reason .= ': <b>' . $details . '</b>';
 
@@ -1289,33 +1330,51 @@ function cerber_block_garbage_collector() {
 function cerber_block_check( $ip = null ) {
 	global $wpdb, $wp_cerber;
 	if ( ! $ip ) {
+	    // @since 4.7 it's deprecated
+        /*
 		if ( ! is_object( $wp_cerber ) ) {
 			$wp_cerber = new WP_Cerber();
-		}
+		}*/
 		$ip = $wp_cerber->getRemoteIp();
 	}
-	cerber_block_garbage_collector();
-	if ( $wpdb->get_var( $wpdb->prepare( 'SELECT count(ip) FROM ' . CERBER_BLOCKS_TABLE . ' WHERE ip = %s', $ip ) ) ) {
+
+	//cerber_block_garbage_collector();
+	/*
+    if ( $wpdb->get_var( $wpdb->prepare( 'SELECT count(ip) FROM ' . CERBER_BLOCKS_TABLE . ' WHERE ip = %s', $ip ) ) ) {
 		return true;
 	} else {
 		$subnet = cerber_get_subnet( $ip ); // try subnet
 		if ( $wpdb->get_var( $wpdb->prepare( 'SELECT count(ip) FROM ' . CERBER_BLOCKS_TABLE . ' WHERE ip = %s', $subnet ) ) ) {
 			return true;
 		}
+	}*/
+
+
+	if ( is_object( $wp_cerber )) $wp_cerber->deleteGarbage(); // TODO: 1) is_object must be refactored & 2) should be scheduled?
+
+	// @since 4.7
+	if (!filter_var($ip, FILTER_VALIDATE_IP)) return false;
+
+	$subnet = cerber_get_subnet( $ip );
+	if ( $wpdb->get_var( 'SELECT count(ip) FROM ' . CERBER_BLOCKS_TABLE . ' WHERE ip = "' . $ip . '" OR ip = "' . $subnet . '"' ) ) {
+		return true;
 	}
 
 	return false;
 }
 
 /*
-	Check remain time for IP if it is blocked. With C subnet also.
+	Return lockout row for an IP if it is blocked. With C subnet also.
 */
 function cerber_get_block( $ip = '' ) {
 	global $wpdb, $wp_cerber;
 	if ( ! $ip ) {
 		$ip = $wp_cerber->getRemoteIp();
 	}
-	cerber_block_garbage_collector();
+
+	$wp_cerber->deleteGarbage();
+
+	/*
 	if ( $ret = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . CERBER_BLOCKS_TABLE . ' WHERE ip = %s', $ip ) ) ) {
 		return $ret;
 	} else {
@@ -1323,6 +1382,15 @@ function cerber_get_block( $ip = '' ) {
 		if ( $ret = $wpdb->get_row( $wpdb->prepare( 'SELECT * FROM ' . CERBER_BLOCKS_TABLE . ' WHERE ip = %s', $subnet ) ) ) {
 			return $ret;
 		}
+	}
+	*/
+
+	// @since 4.7
+	if (!filter_var($ip, FILTER_VALIDATE_IP)) return false;
+
+	$subnet = cerber_get_subnet( $ip );
+	if ( $ret = $wpdb->get_row( 'SELECT * FROM ' . CERBER_BLOCKS_TABLE . ' WHERE ip = "' . $ip . '" OR ip = "' . $subnet . '"' ) ) {
+		return $ret;
 	}
 
 	return false;
@@ -1707,7 +1775,7 @@ function cerber_cidr2range( $cidr = '' ) {
 }
 
 /**
- * Try to recognize an IP range or single IP in a string.
+ * Try to recognize an IP range or a single IP in a string.
  *
  * @param $string string  Network wildcard, CIDR or IP range.
  *
@@ -2107,7 +2175,7 @@ function cerber_date( $timestamp ) {
  * Log activity
  *
  * @param int $activity Activity ID
- * @param string $login Login used
+ * @param string $login Login used or any additional information
  * @param int $user_id  User ID
  * @param null $ip  IP Address
  *
@@ -2196,6 +2264,10 @@ function cerber_log( $activity, $login = '', $user_id = 0, $ip = null ) {
 
 			break;
 		}
+	}
+
+	if ( $activity == 40 && $wp_cerber->getSettings( 'cerberlab' ) ) {
+		lab_save_push( $ip, $activity, '' );
 	}
 
 	return $ret;
@@ -2590,4 +2662,134 @@ function cerber_add_uid( $commentdata ) {
 	$commentdata['user_ID'] = $current_user->ID;
 
 	return $commentdata;
+}
+
+/**
+ * Add JQuery
+ *
+ */
+//add_action( 'login_enqueue_scripts', 'cerber_scripts' );
+add_action( 'wp_enqueue_scripts', 'cerber_scripts' );
+function cerber_scripts() {
+	global $wp_cerber;
+	if ($wp_cerber->getSettings('sitekey') && $wp_cerber->getSettings('secretkey')){
+		wp_enqueue_script('jquery');
+    }
+}
+
+/**
+ * Footer stuff
+ * Explicit rendering reCAPTCHA
+ *
+ */
+add_action( 'login_footer', 'cerber_login_foo', 1000 );
+function cerber_login_foo( $ip ) {
+    global $wp_cerber;
+    // Universal JS
+	if (!$wp_cerber->recaptcha_here) return;
+	$sitekey = $wp_cerber->getSettings('sitekey');
+	$lang = get_bloginfo( 'language' );
+	if ( $lang == 'en-US' ) {
+		$lang = 'en';
+	}
+
+	if (!$wp_cerber->getSettings('invirecap')){
+	    // Classic version (visible reCAPTCHA)
+		echo '<script src = "https://www.google.com/recaptcha/api.js?hl=<?php echo $lang; ?>" async defer></script>';
+    }
+	else {
+	    // Pure JS version with explicit rendering
+		?>
+        <script src="https://www.google.com/recaptcha/api.js?onload=init_recaptcha_widgets&render=explicit&hl=<?php echo $lang; ?>" async defer></script>
+        <script type='text/javascript'>
+
+            document.getElementById("cerber-recaptcha").remove();
+
+            var init_recaptcha_widgets = function () {
+                for (var i = 0; i < document.forms.length; ++i) {
+                    var form = document.forms[i];
+                    var place = form.querySelector('.cerber-form-marker');
+                    if (null !== place) render_recaptcha_widget(form, place);
+                }
+            };
+
+            function render_recaptcha_widget(form, place) {
+                var place_id = grecaptcha.render(place, {
+                    'callback': function (g_recaptcha_response) {
+                        HTMLFormElement.prototype.submit.call(form);
+                    },
+                    'sitekey': '<?php echo $sitekey; ?>',
+                    'size': 'invisible',
+                    'badge': 'bottomright'
+                });
+
+                form.onsubmit = function (event) {
+                    event.preventDefault();
+                    grecaptcha.execute(place_id);
+                };
+
+            }
+        </script>
+		<?php
+	}
+}
+
+/**
+ * Inline reCAPTCHA widget
+ *
+ */
+add_action( 'wp_footer', 'cerber_foo', 1000 );
+function cerber_foo() {
+    global $wp_cerber;
+    if (!$wp_cerber->recaptcha_here) return;
+	$lang = get_bloginfo( 'language' );
+	if ( $lang == 'en-US' ) {
+		$lang = 'en';
+	}
+	// jQuery version with support visible and invisible reCAPTCHA
+	// TODO: convert it into pure JS
+	?>
+    <script type="text/javascript">
+
+        jQuery(document).ready(function ($) {
+
+            var recaptcha_ok = false;
+            var the_recaptcha_widget = $("#cerber-recaptcha");
+            var is_recaptcha_visible = ($(the_recaptcha_widget).data('size') !== 'invisible');
+
+            var the_form = $(the_recaptcha_widget).closest("form");
+            var the_button = $(the_form).find('input[type="submit"]');
+            if (!the_button.length) {
+                the_button = $(the_form).find(':button');
+            }
+
+            // visible
+            if (the_button.length && is_recaptcha_visible) {
+                the_button.prop("disabled", true);
+                the_button.css("opacity", 0.5);
+            }
+
+            window.form_button_enabler = function () {
+                if (!the_button.length) return;
+                the_button.prop("disabled", false);
+                the_button.css( "opacity", 1 );
+            };
+
+            // invisible
+            if (!is_recaptcha_visible) {
+                $(the_button).click(function (event) {
+                    if (recaptcha_ok) return;
+                    event.preventDefault();
+                    grecaptcha.execute();
+                });
+            }
+
+            window.now_submit_the_form = function () {
+                recaptcha_ok = true;
+                $(the_button).click(); // this is only way to submit a form that contains "submit" inputs
+            };
+        });
+    </script>
+    <script src = "https://www.google.com/recaptcha/api.js?hl=<?php echo $lang; ?>" async defer></script>
+	<?php
 }

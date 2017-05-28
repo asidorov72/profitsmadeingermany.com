@@ -3,7 +3,7 @@
 Plugin Name: WP Register Profile With Shortcode
 Plugin URI: https://wordpress.org/plugins/wp-register-profile-with-shortcode/
 Description: This is a simple registration form in the widget. just install the plugin and add the register widget in the sidebar. Thats it. :)
-Version: 3.3.2
+Version: 3.3.3
 Text Domain: wp-register-profile-with-shortcode
 Domain Path: /languages
 Author: aviplugins.com
@@ -18,9 +18,13 @@ Author URI: http://www.aviplugins.com/
 **/
 
 include_once dirname( __FILE__ ) . '/admin_notification_mail.php';
+
 include_once dirname( __FILE__ ) . '/settings.php';
+
 include_once dirname( __FILE__ ) . '/register_afo_widget.php';
+
 include_once dirname( __FILE__ ) . '/register_afo_widget_shortcode.php';
+
 include_once dirname( __FILE__ ) . '/form_class.php';
 
 
@@ -42,3 +46,19 @@ Thank You';
 }
 
 register_activation_hook( __FILE__, 'wp_register_profile_set_default_data' );
+
+new register_settings;
+
+new profile_edit_afo;
+
+new update_password_afo;
+
+add_shortcode( 'rp_register_widget', 'register_widget_pro_afo_shortcode' );
+
+add_shortcode( 'rp_profile_edit', 'user_profile_edit_pro_afo_shortcode' );
+
+add_shortcode( 'rp_update_password', 'user_password_afo_shortcode' );
+
+add_shortcode( 'rp_user_data', 'get_user_data_afo' );
+
+add_action( 'widgets_init', create_function( '', 'register_widget( "register_wid" );' ) );

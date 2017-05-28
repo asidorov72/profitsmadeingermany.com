@@ -162,7 +162,7 @@ class login_settings {
 		<td colspan="2"><?php $lmc->show_message();?></td>
 	  </tr>
 	  <tr>
-		<td width="45%"><h1><?php _e('Login Widget AFO Settings','login-sidebar-widget');?></h1></td>
+		<td width="45%"><h1><?php _e('Login Widget Settings','login-sidebar-widget');?></h1></td>
 		<td width="55%">&nbsp;</td>
 	  </tr>
       

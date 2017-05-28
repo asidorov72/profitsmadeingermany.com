@@ -3,8 +3,8 @@ Contributors: avimegladon
 Donate link: http://www.aviplugins.com/donate/
 Tags: login, widget, login widget, widget login, sidebar login, login form, user login, authentication, facebook login, twitter login, google login, google plus, facebook, twitter, social login, social media, facebook comments, fb comment, forgot password, reset password, link
 Requires at least: 2.0.2
-Tested up to: 4.7.3
-Stable tag: 5.5.8
+Tested up to: 4.7.4
+Stable tag: 5.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -113,6 +113,9 @@ exit;<br>
 
 
 == Changelog ==
+
+= 5.6.0 = 
+* Password code updated.
 
 = 5.5.8 = 
 * Password field bug fixed.

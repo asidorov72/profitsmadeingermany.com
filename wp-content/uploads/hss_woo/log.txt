@@ -1,0 +1,68 @@
+hss_edd_complete_purchase_add_video - 343 - publish - pending
+Array
+(
+    [0] => Array
+        (
+            [id] => 275
+            [quantity] => 1
+            [options] => Array
+                (
+                    [quantity] => 1
+                    [price_id] => 0
+                )
+
+        )
+
+)
+
+hss_edd_complete_purchase_add_video - 348 - publish - pending
+Array
+(
+    [0] => Array
+        (
+            [id] => 305
+            [quantity] => 1
+            [options] => Array
+                (
+                    [quantity] => 1
+                    [price_id] => 0
+                )
+
+        )
+
+)
+
+hss_edd_complete_purchase_add_video - 347 - abandoned - pending
+Array
+(
+    [0] => Array
+        (
+            [id] => 305
+            [quantity] => 1
+            [options] => Array
+                (
+                    [quantity] => 1
+                    [price_id] => 0
+                )
+
+        )
+
+)
+
+hss_edd_complete_purchase_add_video - 350 - publish - pending
+Array
+(
+    [0] => Array
+        (
+            [id] => 275
+            [quantity] => 1
+            [options] => Array
+                (
+                    [quantity] => 1
+                    [price_id] => 0
+                )
+
+        )
+
+)
+

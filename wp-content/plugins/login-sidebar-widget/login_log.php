@@ -65,7 +65,6 @@ class afo_login_log{
 }
 
 
-add_action('admin_init', 'login_log_ip_data');
 function login_log_ip_data(){
 	if(isset($_REQUEST['action']) and sanitize_text_field($_REQUEST['action']) == "empty_log"){
 		if ( ! isset( $_REQUEST['trash_log'] ) || ! wp_verify_nonce( $_REQUEST['trash_log'], 'empty_login_log' ) ) {

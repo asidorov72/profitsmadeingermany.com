@@ -18,7 +18,7 @@ get_header(); ?>
 				<header class="page-header">
 					<h1 class="page-title"><?php esc_html_e( 'Oops! That page can&rsquo;t be found.', 'edigital' ); ?></h1>
 				</header><!-- .page-header -->
-				<div class="error-num"> <?php echo esc_html( '404', 'edigital' ); ?> <span><?php echo esc_html( 'error', 'edigital' );?></span> </div>
+				<div class="error-num"> <?php esc_html_e( '404', 'edigital' ); ?> <span><?php esc_html_e( 'error', 'edigital' );?></span> </div>
 				<div class="page-content">
 					<p><?php esc_html_e( 'It looks like nothing was found at this location. Maybe try one of the links below or a search?', 'edigital' ); ?></p>
 

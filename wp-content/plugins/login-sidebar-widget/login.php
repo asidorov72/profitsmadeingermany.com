@@ -3,7 +3,7 @@
 Plugin Name: Login Widget With Shortcode
 Plugin URI: https://wordpress.org/plugins/login-sidebar-widget/
 Description: This is a simple login form in the widget. just install the plugin and add the login widget in the sidebar. Thats it. :)
-Version: 5.5.8
+Version: 5.6.0
 Text Domain: login-sidebar-widget
 Domain Path: /languages
 Author: aviplugins.com
@@ -29,6 +29,18 @@ include_once dirname( __FILE__ ) . '/form_class.php';
 
 new login_settings;
 new afo_login_log;
+
+add_action( 'widgets_init', create_function( '', 'register_widget( "login_wid" );' ) );
+
+add_action( 'init', 'login_validate' );
+add_action( 'init', 'forgot_pass_validate' );
+
+add_shortcode( 'login_widget', 'login_widget_afo_shortcode' );
+add_shortcode( 'forgot_password', 'forgot_password_afo_shortcode' );
+
+add_action('admin_init', 'login_log_ip_data');
+
+add_action('plugins_loaded', 'security_init');
 
 function afo_login_setup_init() {
 	

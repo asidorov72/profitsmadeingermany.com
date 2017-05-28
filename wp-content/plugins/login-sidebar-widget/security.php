@@ -112,8 +112,6 @@ if(!function_exists('security_init')){
 	}
 }
 
-add_action('plugins_loaded', 'security_init');
-
 class login_log_adds{
 	public function log_add( $ip = '', $msg = '', $l_added = '', $l_status = '' ){
 		global $wpdb;

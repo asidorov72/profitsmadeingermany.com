@@ -17,7 +17,7 @@ get_header(); ?>
 				<?php
 					$home_slider_option = get_theme_mod( 'homepage_slider_option', 'show' );
 					$home_slider_cat_id = get_theme_mod( 'slider_cat_id', '0' );
-					if( $home_slider_option != 'hide' ) {
+					if( $home_slider_option != 'hide' && !empty( $home_slider_cat_id ) ) {
 						$slider_args = array(
 								'post_type' => 'post',
 								'category__in' => absint( $home_slider_cat_id ),

@@ -1,0 +1,11 @@
+activate_subscription_header	Activate subscription	Call to action "Activate subscription".	Subscription
+activate_subscription_text	To view this lesson please activate subscription.	Text on the paybox for logged-in users.	Subscription
+activate_subscription_text_guest	To view this lesson please login and activate subscription.	Text on the paybox for not logged-in users.	Subscription
+period_for_points	%s for %d points	Subscription option to choose eg. "2 weeks for 20 points".	Micropayments
+mp_error_wallet_not_exists	Wallet doesn't exists.	Error when trying to charging not existing wallet.	Micropayments
+mp_error_not_enough_points	Not enough points in wallet.	Error when trying to charging wallet which have not enough points.	Micropayments
+subscription_activate_button	Activate	Activate subscription button label.	Micropayments
+subscription_activate_button_period_for_points	Activate %s for %d points	Activate subscription button label when only one cost is available.	Micropayments
+mp_wallet_button	Show wallet	Show wallet button label.	Micropayments
+mp_checkout_button	Checkout points	Checkout points button label.	Micropayments
+mp_subscription_activate_success	Your subscription has been activated. Charged %d points from your wallet.	Success message after subscription has been activated.	Micropayments

@@ -176,7 +176,6 @@ class profile_edit_afo{
 		
 }
 
-new profile_edit_afo;
 
 class update_password_afo{
 
@@ -261,8 +260,6 @@ class update_password_afo{
 		
 }
 
-new update_password_afo;
-
 function register_widget_pro_afo_shortcode( $atts ) {
      global $post;
 	 extract( shortcode_atts( array(
@@ -279,7 +276,6 @@ function register_widget_pro_afo_shortcode( $atts ) {
 	ob_end_clean();
 	return $ret;
 }
-add_shortcode( 'rp_register_widget', 'register_widget_pro_afo_shortcode' );
 
 function user_profile_edit_pro_afo_shortcode( $atts ) {
      global $post;
@@ -297,7 +293,6 @@ function user_profile_edit_pro_afo_shortcode( $atts ) {
 	ob_end_clean();
 	return $ret;
 }
-add_shortcode( 'rp_profile_edit', 'user_profile_edit_pro_afo_shortcode' );
 
 function user_password_afo_shortcode( $atts ) {
      global $post;
@@ -315,8 +310,6 @@ function user_password_afo_shortcode( $atts ) {
 	ob_end_clean();
 	return $ret;
 }
-add_shortcode( 'rp_update_password', 'user_password_afo_shortcode' );
-
 
 function get_user_data_afo( $atts ) {
      global $post;
@@ -341,7 +334,6 @@ function get_user_data_afo( $atts ) {
 		
 	 return $ret;
 }
-add_shortcode( 'rp_user_data', 'get_user_data_afo' );
 
 function rp_user_data_func($field='',$user_id=''){
 	echo do_shortcode('[rp_user_data field="'.$field.'" user_id="'.$user_id.'"]');

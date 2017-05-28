@@ -77,11 +77,17 @@ function cerber_push_the_news( $version ) {
 	$news['4.5'][] = 'Ability to choose a 404 page template. The plugin will try to use the 404 template from the active theme, and this is a default behavior or a generate simple 404 page like Apache web server does.';
 	$news['4.5'][] = 'Events on the Activity tab are displaying with user roles and avatars.';
 
+	$news['4.7.7'][] = 'Welcome invisible reCAPTCHA. You can choose what type you want to use: classic visible or new invisible reCAPTCHA. <a target="_blank" href="http://wpcerber.com/how-to-setup-recaptcha/">How to setup</a>.';
+	$news['4.7.7'][] = 'reCAPTCHA for comment forms is available now. Stop spam comments – use reCAPTCHA as an anti-spam tool for WordPress comment forms.';
+	$news['4.7.7'][] = 'Dates on the plugin dashboard now are displayed according to the Site Language.';
+	$news['4.7.7'][] = '<a target="_blank" href="https://www.facebook.com/pg/wpcerber/reviews/">You can leave a review on Facebook now.</a>';
+
+
 	if ( ! empty( $news[ $version ] ) ) {
 		$text = '<h3>What\'s new in WP Cerber '.$version.'</h3>';
 		$text .= '<ul><li>'.implode('</li><li>', $news[ $version ]).'</li></ul>';
 
-		$text .= '	<p style="margin-top: 18px;"><a href="http://wpcerber.com/security/releases/" target="_blank">Read a full list of changes and improvements</a></p>';
+		$text .= '	<p style="margin-top: 18px;"><a href="http://wpcerber.com/security/releases/" target="_blank">Change log</a></p>';
 
 		$text .= '	<p style="margin-top: 24px;"><span class="dashicons-before dashicons-email-alt"></span> &nbsp; <a href="http://wpcerber.com/subscribe-newsletter/">Subscribe to Cerber\'s newsletter</a></p>
 					<p><span class="dashicons-before dashicons-twitter"></span> &nbsp; <a href="https://twitter.com/wpcerber">Follow Cerber on Twitter</a></p>

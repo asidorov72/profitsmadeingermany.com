@@ -1,0 +1,133 @@
+.right {float: right;}
+
+tr.cmvl-category th {font-weight: bold; background: #88bbee; color: #115599;}
+tr.cmvl-category th a {color: black;}
+.cmvl-stats-user-table thead th:first-child, tr.cmvl-channel td:first-child {}
+.cmvl-stats-user-table tr:nth-child(even) {background: #f6f6f6;}
+
+.cmvl-pagination, .cmvl-pagination li {list-style: none; margin: 0; padding: 0;}
+.cmvl-pagination li {display: inline-block;}
+.cmvl-pagination a {display: inline-block; padding: 0.5em 1em; font-size: 14px; text-decoration: none; font-weight: bold; background: #f0f0f0; border: 1px solid #cccccc; color: #777777;}
+.cmvl-pagination a:hover {color: black; border-color: #999999;}
+.cmvl-pagination .current-page a {background: white; color: black;}
+.cmvl-cost-add {margin-top: 1em;}
+
+.cmvl-get-pro {background: white; padding: 1em; width: 450px; border: solid 1px #dddddd; margin: 0 auto;}
+.cmvl-get-pro, .cmvl-get-pro p {font-size: 110%;}
+.cmvl-get-pro p {margin: 0;}
+.cmvl-get-pro .center {text-align: center;}
+.cmvl-get-pro a.button {font-size: 120%; font-weight: bold; padding: 0 2em; line-height: 2em; height: 2em; background: #006699; color: white; margin: 1em 0;}
+.cmvl-pro-features {list-style: none;}
+.cmvl-pro-features li {margin: 0;}
+.cmvl-pro-features li:before {content: "\f147";
+	display: inline-block;
+	padding-right: 5px;
+	-webkit-font-smoothing: antialiased;
+	font: normal 30px 'dashicons';
+	vertical-align: middle;
+	color: #009900;
+	cursor: default;
+	
+}
+
+.cmvl-report-row-filter {margin-left: 1em; display: none; border: 1px solid #cccccc; background: #f0f0f0; color: #333333; padding: 3px 0.5em; float: right; font-size: 10px;}
+td:hover .cmvl-report-row-filter, .cmvl-report-row-filter:active {display: inline-block;}
+.cmvl-report-table .cmvl-actions, .cmvl-report-table .cmvl-actions li {list-style: none; display: inline-block; margin: 0; padding: 0;}
+.cmvl-report-table .cmvl-actions a {padding: 0 0.5em 0 0;}
+
+.cmvl-subscription-add-form .inner {background: white; padding: 1em; margin-bottom: 1em; border: solid 1px #e0e0e0;}
+.cmvl-subscription-add-form .inner.closed {display: none;}
+.cmvl-subscription-add-form select {vertical-align: top;}
+.cmvl-subscription-add-form input[type=text] {width: 8em;}
+.cmvl-subscription-add-form input[type=number] {width: 5em;}
+.cmvl-subscription-add-form label {margin-right: 1em;}
+.cmvl-subscription-add-form input[type=submit] {padding-left: 1em; padding-right: 1em;}
+.cmvl-subscription-add-form .cmvl-subscription-add-post {display: none;}
+
+.cmvl-settings-dashboard-tab {margin: 0 0 1em 0;}
+.cmvl-settings-dashboard-tab input[type=text], .cmvl-settings-dashboard-tab textarea {width: 300px;}
+
+.cmvl-channels {max-height: 200px; overflow: auto; border: solid 1px #f0f0f0;}
+.cmvl-channels h4 {margin: 2em 0 1em 0 !important;}
+.cmvl-channel-sort {margin: 1em 0;}
+
+.cmvl-help {background: white; border: solid 1px #d0d0d0; display: inline-block; padding: 15px 25px 15px 15px;}
+.cmvl-help h3 {margin-top: 0 !important; display: inline-block; margin-bottom: 0 !important; font-size: 110%;}
+.cmvl-help ul {margin: 0 !important; padding: 0 !important; display: inline-block;}
+.cmvl-help li {list-style: disc !important; margin: 0 0 0 20px !important; padding: 0 !important; display: inline-block;}
+
+.cmvl-admin-notice {position: relative; padding-right: 30px !important;}
+.cmvl-admin-notice .cmvl-dismiss {position: absolute; top: 10px; right: 10px; text-decoration: none; background: #aaaaaa; color: white;
+	border-radius: 15px 15px; width: 15px; height: 15px; text-align: center; font-size: 15px; font-weight: bold; line-height: 15px;}
+	
+.cmvl-test-configuration textarea {width: 100%; height: 100px;}
+.cmvl-test-videos ul {max-height: 200px; overflow: auto; border: solid 1px #eeeeee;}
+.cmvl-test-configuration .cmvl-error, .cmvl-test-configuration .cmvl-success {font-weight: bold; font-size: 150%; margin: 1em 0;}
+.cmvl-test-configuration .cmvl-error {color: red;}
+.cmvl-test-configuration .cmvl-success {color: green;}
+.cmvl-hidden-details {display: none;}
+
+.cmvl-import-videos {padding-top: 2em;}
+.cmvl-loader-bar {background: url(../img/ajax-loader-bar.gif) no-repeat left top; width: 43px; height: 11px;}
+.cmvl-col-thumbnail {width: 200px;}
+.cmvl-col-duration {width: 100px;}
+.cmvl-col-date {}
+
+.cmvl-video-list {margin: 2em 0;}
+.cmvl-video-import-proceed {float: right;}
+
+
+.cmvl-autocomplete-item {cursor: pointer; background: white; border: 1px solid #ccc; border-top-style: none; padding: 0.4em 0.5em;}
+.cmvl-autocomplete-item:nth-child(even) {background: #f0f0f0;}
+.cmvl-autocomplete-item:first-child {border-top-style: solid !important;}
+.cmvl-autocomplete-item:hover {background: #335599; color: white;}
+.cmvl-autocomplete-results {margin-bottom: 1em;}
+.cmvl-metabox-video-channel[data-channel-exists="0"] .cmvl-channel {display: none;}
+.cmvl-metabox-video-channel[data-channel-exists="1"] .cmvl-no-channel {display: none;}
+.cmvl-metabox-video-channel .cmvl-channel-remove {cursor: pointer;}
+
+.cmvl-metabox-channel-videos-list[data-has-videos="1"] .cmvl-no-videos {display: none;}
+.cmvl-metabox-channel-videos-list .cmvl-videos-list li[data-id="0"] {display: none;}
+.cmvl-metabox-channel-videos-list .cmvl-videos-list img {width: 100px; vertical-align: top; margin-right: 1em; cursor: move;}
+.cmvl-metabox-channel-videos-list .cmvl-autocomplete-wrapper {}
+.cmvl-metabox-channel-videos-list .cmvl-remove {cursor: pointer;}
+
+.cmvl-ui-state-highlight { height: 80px; line-height: 70px; background: #f9f9f9; border: dashed 2px #ccc;}
+
+.cmvl-report-table .cmvl-thumb {float: left; margin-right: 1em; width: 70px;}
+.cmvl-report-table .cmvl-title-col {width: 40%;}
+
+.cmvl-update-wrapper {background: white; max-width: 700px; padding: 2em; margin-top: 2em; border: solid 1px #ddd;}
+.cmvl-update-wrapper h1 {font-size: 250%;}
+.cmvl-update-wrapper p, .cmvl-update-wrapper li, .cmvl-update-wrapper .cmvl-bottom {font-size: 120%;}
+.cmvl-update-wrapper li {list-style: disc; margin-left: 2em;}
+.cmvl-update-wrapper .button-primary {}
+.cmvl-update-wrapper .cmvl-loader-bar {}
+.cmvl-update-wrapper .cmvl-bottom {margin: 3em 0 1em 0;}
+.cmvl-update-wrapper .cmvl-result {margin-top: 2em;}
+.cmvl-update-wrapper .cmvl-success {font-weight: bold;}
+.cmvl-update-wrapper .cmvl-success, .cmvl-update-wrapper .cmvl-error {display: none;}
+
+#adminmenu a[href*="cmvl-import-videos"] {display: none;}
+#cmvl_thumb_col {width: 100px !important;}
+td.cmvl_thumb_col img {width: 100px !important; height: auto !important;}
+.form-finalize .button.right {margin-left: 1em;}
+
+.cmvl-report-table td {height: 2em; font-size: 100%;}
+.cmvl-report-table .cmvl-thumb {max-height: 30px; width: auto;}
+.cmvl-report-table thead th {}
+.cmvl-report-table .cmvl-narrow {width: 10em;}
+.cmvl-report-table .cmvl-title-col {font-size: 110%;}
+.cmvl-report-form label {white-space: nowrap; margin-right: 1em;}
+.cmvl-remark {color: #999;}
+
+@media print {
+	#adminmenumain, #wpfooter, .cmvl-no-print {display: none;}
+	#wpcontent {margin-left: 0;}
+	.cmvl-report-table .cmvl-narrow {width: auto;}
+}
+
+.cmvl-metabox-channel-appearance label {display: block;}
+.cmvl-metabox-channel-appearance .cmvl-field {margin-bottom: 1.5em;}
+
+.cmvl-report-download-csv-btn {float: right;}

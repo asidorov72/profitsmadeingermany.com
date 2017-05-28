@@ -85,7 +85,7 @@ function cerber_pb_get_devices($token = ''){
 }
 
 /**
- * Send push message to the devices
+ * Send push message via Pushbullet
  *
  * @param $title
  * @param $body
@@ -142,9 +142,11 @@ function cerber_self_diagnostic(){
  * @param $ip string IP address
  * @return string ID for given IP
  */
-function cerber_get_id_ip($ip){
-	$ip_id = str_replace('.','-',$ip,$count);
-	if (!$count) $ip_id = str_replace(':','_',$ip_id); // IPv6
+function cerber_get_id_ip( $ip ) {
+	$ip_id = str_replace( '.', '-', $ip, $count );
+	if ( ! $count ) {  // IPv6
+		$ip_id = str_replace( ':', '_', $ip_id );
+	}
 	return $ip_id;
 }
 /**
@@ -155,9 +157,11 @@ function cerber_get_id_ip($ip){
  *
  * @return string IP address for given ID
  */
-function cerber_get_ip_id($ip_id){
-	$ip = str_replace('-','.',$ip_id,$count);
-	if (!$count) $ip = str_replace('_',':',$ip); // IPv6
+function cerber_get_ip_id( $ip_id ) {
+	$ip = str_replace( '-', '.', $ip_id, $count );
+	if ( ! $count ) {  // IPv6
+		$ip = str_replace( '_', ':', $ip );
+	}
 	return $ip;
 }
 /**
@@ -311,56 +315,14 @@ function cerber_db_error_log($msg = null){
 /**
  * Return human readable "ago" time
  * 
- * @param $time integer Unix GMT time of event
- * @param null $limit
+ * @param $time integer Unix timestamp - time of an event
  *
  * @return string
  */
-function cerber_ago_time($time, $limit = null){
-	//if ($limit && ($limit < (time() - $time))) return wof_date($time);
-	$etime = time() - $time;
-	if ($etime < 1){
-		return '0 seconds ago';
-	}
-	/*    $a = array( 365 * 24 * 60 * 60  =>  'year',
-			30 * 24 * 60 * 60  =>  'month',
-			24 * 60 * 60  =>  'day',
-			60 * 60  =>  'hour',
-			60  =>  'minute',
-			1  =>  'second'
-		);
-	*/
-	$a = array();
-	$a[31536000]  = 'year';
-	$a[2592000]  = 'month';
-	$a[86400]  = 'day';
-	$a[3600]  = 'hour';
-	$a[60]  = 'minute';
-	$a[1]  = 'second';
-	$ago_singular =
-		array( 'year' => __('year','wp-cerber'),
-		       'month'  => __('month','wp-cerber'),
-		       'day'    => __('day','wp-cerber'),
-		       'hour'   => __('hour','wp-cerber'),
-		       'minute' => __('minute','wp-cerber'),
-		       'second' => __('second','wp-cerber')
-		);
-	$a_plural =
-		array( 'year' => __('years','wp-cerber'),
-		       'month'  => __('months','wp-cerber'),
-		       'day'    => __('days','wp-cerber'),
-		       'hour'   => __('hours','wp-cerber'),
-		       'minute' => __('minutes','wp-cerber'),
-		       'second' => __('seconds','wp-cerber')
-		);
-	foreach ($a as $secs => $str){
-		$d = $etime / $secs;
-		if ($d >= 1){
-			$r = round($d);
-			return $r . ' ' . ($r > 1 ? $a_plural[$str] : $ago_singular[$str]) .' '. __('ago','wp-cerber');
-		}
-	}
-	return $time;
+function cerber_ago_time($time){
+
+	return sprintf( __( '%s ago' ), human_time_diff( $time ) );
+
 }
 
 function cerber_percent($one,$two){

@@ -269,31 +269,31 @@ class register_wid extends WP_Widget {
 		$data = '';
 		
 		if(!empty($userdata['user_login'])){
-			$data .= '<strong>User Name:</strong> '.$userdata['user_login'];
+			$data .= '<strong>'.__( 'User Name', 'wp-register-profile-with-shortcode' ).':</strong> '.$userdata['user_login'];
 			$data .= '<br>';
 		}
 		if(!empty($userdata['user_email'])){
-			$data .= '<strong>User Email:</strong> '.$userdata['user_email'];
+			$data .= '<strong>'.__( 'User Email', 'wp-register-profile-with-shortcode' ).':</strong> '.$userdata['user_email'];
 			$data .= '<br>';
 		}
 		if(!empty($userdata['first_name'])){
-			$data .= '<strong>First Name:</strong> '.$userdata['first_name'];
+			$data .= '<strong>'.__( 'First Name', 'wp-register-profile-with-shortcode' ).':</strong> '.$userdata['first_name'];
 			$data .= '<br>';
 		}
 		if(!empty($userdata['last_name'])){
-			$data .= '<strong>Last Name:</strong> '.$userdata['last_name'];
+			$data .= '<strong>'.__( 'Last Name', 'wp-register-profile-with-shortcode' ).':</strong> '.$userdata['last_name'];
 			$data .= '<br>';
 		}
 		if(!empty($userdata['display_name'])){
-			$data .= '<strong>Display Name:</strong> '.$userdata['display_name'];
+			$data .= '<strong>'.__( 'Display Name', 'wp-register-profile-with-shortcode' ).':</strong> '.$userdata['display_name'];
 			$data .= '<br>';
 		}
 		if(!empty($userdata['description'])){
-			$data .= '<strong>About User:</strong> '.$userdata['description'];
+			$data .= '<strong>'.__( 'About User', 'wp-register-profile-with-shortcode' ).':</strong> '.$userdata['description'];
 			$data .= '<br>';
 		}
 		if(!empty($userdata['user_url'])){
-			$data .= '<strong>User Url:</strong> '.$userdata['user_url'];
+			$data .= '<strong>'.__( 'User URL', 'wp-register-profile-with-shortcode' ).':</strong> '.$userdata['user_url'];
 			$data .= '<br>';
 		}
 		
@@ -433,4 +433,3 @@ class register_wid extends WP_Widget {
 	
 } 
 
-add_action( 'widgets_init', create_function( '', 'register_widget( "register_wid" );' ) );

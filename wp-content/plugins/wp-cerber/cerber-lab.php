@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) { exit; }
 define( 'LAB_NODE_MAX', 5 ); // Maximum node ID
 define( 'LAB_DELAY_MAX', 1500 ); // milliseconds, reasonable processing time while connecting to a node
 define( 'LAB_RECHECK', 15 * 60 ); // seconds, allowed interval for rechecking nodes
-define( 'LAB_INTERVAL', 240 ); // seconds, push interval
+define( 'LAB_INTERVAL', 180 ); // seconds, push interval
 define( 'LAB_DNS_TTL', 3 * 24 * 3600 ); // seconds, interval of updating DNS cache for nodes IPs
 
 /**
@@ -59,6 +59,8 @@ function lab_api_send_request($workload = array()) {
 		'key' => cerber_get_key(),
 		'workload' => $workload,
 		'push' => $push,
+		'lang' => get_bloginfo( 'language' ),
+		'version' => CERBER_VER,
 	);
 
 	$ret = lab_send_request($request);
@@ -334,7 +336,29 @@ function lab_status(){
 
 	return $ret;
 }
-
+/**
+ * Save data for lab
+ *
+ * @param $ip
+ * @param $reason_id
+ * @param $details
+ */
+function lab_save_push( $ip, $reason_id, $details ) {
+	global $wpdb, $wp_cerber;
+	if ( $wp_cerber->getSettings( 'cerberlab' ) ) {
+		$wpdb->insert( CERBER_LAB_TABLE, array(
+			'ip'        => $ip,
+			'reason_id' => $reason_id,
+			'details'   => $details,
+			'stamp'     => time(),
+		), array( '%s', '%d', '%s', '%d' ) );
+	}
+}
+/**
+ * Get data for lab
+ *
+ * @return array|bool
+ */
 function lab_get_push() {
 	global $wpdb;
 

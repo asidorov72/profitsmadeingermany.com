@@ -1,0 +1,31 @@
+notes	notes	The "notes" word.	General
+bookmark	bookmark	The "bookmark" word.	General
+bookmarks	bookmarks	The "bookmarks" word.	General
+lesson_purchase	Purchase	Purchase lesson.	General
+
+search_placeholder	Search in...	The search text input placeholder.	Navigation
+search_clear_button	Clear search	The clear search button title.	Navigation
+bookmarks_page_link	Bookmarks	The Bookmarks page link.	Navigation
+stats_page_link	Statistics	The Statistics page link.	Navigation
+all	all	The "all" option in the search box.	Navigation
+playlist_table_of_content	Table of content	Table of content on the playlist view.	Navigation
+playlist_lesson_desc_btn	Information about lesson	Show lesson description button.	Navigation
+
+notes_placeholder	Enter notes here...	The notes textarea placeholder.	Player
+
+subscription_amount_payed	Payed	Subscription amount payed column.	Subscription
+subscription_period	Subscription period	Subscription period column name.	Subscription
+subscription_start	Start	Subscription start.	Subscription
+subscription_end	End	Subscription end.	Subscription
+subscription_status	Status	Subscription status.	Subscription
+msg_no_subscriptions	No subscriptions.	No subscriptions message.	Subscription
+free	Free	Free subscription.	Subscription
+mp_amount_payed_format	%d points	Amount payed format.	Subscription
+eddpay_amount_payed_format	$%.2f	Amount payed format.	Subscription
+
+statistics	Statistics	Statistics label.	Statistics
+stats_shortcode_table_caption	Your lesson statistics	Caption of the cmvl-stats shortcode table.	Statistics
+stats_percentage	Percentage	The "percentage" column name.	Statistics
+stats_time_watched	Time watched	The "Time watched" column name.	Statistics
+stats_lesson_duration	Lesson duration [min]	The "Lesson duration" column name.	Statistics
+stats_details	Details	The "Details" column name.	Statistics

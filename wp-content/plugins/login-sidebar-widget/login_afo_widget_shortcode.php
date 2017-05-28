@@ -15,7 +15,6 @@ function login_widget_afo_shortcode( $atts ) {
 	ob_end_clean();
 	return $ret;
 }
-add_shortcode( 'login_widget', 'login_widget_afo_shortcode' );
 
 function forgot_password_afo_shortcode( $atts ) {
      global $post;
@@ -33,4 +32,3 @@ function forgot_password_afo_shortcode( $atts ) {
 	ob_end_clean();
 	return $ret;
 }
-add_shortcode( 'forgot_password', 'forgot_password_afo_shortcode' );

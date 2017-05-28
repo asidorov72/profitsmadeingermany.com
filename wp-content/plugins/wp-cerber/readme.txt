@@ -1,18 +1,17 @@
 === Cerber Security & Limit Login Attempts ===
 Contributors: gioni
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=SR8RJXFU35EW8
-Tags: security, admin, login, custom login, protect, protection, woocommerce, antispam, brute force, bruteforce, users, captcha, recaptcha, activity, log, logging, block, fail2ban, monitoring, rename wp login, whitelist, blacklist, wordpress security, xmlrpc, user enumeration, hardening, authentication, notification, pushbullet
+Tags: security, login, custom login, protect, woocommerce, antispam, recaptcha, captcha, activity, log, logging, block, fail2ban, monitoring, rename wp login, whitelist, blacklist, wordpress security, xmlrpc, user enumeration, hardening, authentication, notification, pushbullet, brute force, bruteforce, users
 Requires at least: 4.4
-Tested up to: 4.7.3
-Stable tag: 4.5
+Tested up to: 4.7.4
+Stable tag: 4.7.7
 License: GPLv2
 
 Protection against brute force attacks and bots. Restrict login by IP access lists. Monitor user and bot activity. Limit login attempts. reCAPTCHA.
 
 == Description ==
 
-Protects WordPress from brute force attacks by limiting the number of login attempts
-through the login form, XML-RPC / REST API requests or using auth cookies.
+Defends WordPress against brute force attacks by limiting the number of login attempts through the login form, XML-RPC / REST API requests or using auth cookies.
 Restricts access with the Black IP Access List and the White IP Access List.
 Tracks user and intruder activity with powerful email, mobile and desktop notifications.
 Activates reCAPTCHA to protect registration form from spam registrations.
@@ -38,6 +37,7 @@ Hardening WordPress.
 * Proactively **block IP subnet class C** for intruder's IP.
 * Antispam: **reCAPTCHA** to protect WordPress login/register/lost password forms.
 * reCAPTCHA for WooCommerce & WordPress forms
+* Invisible reCAPTCHA for WordPress comments forms
 * Citadel mode for **massive brute force attack**.
 * [Play nice with **fail2ban**](http://wpcerber.com/how-to-protect-wordpress-with-fail2ban/): write failed attempts to the syslog or custom log file.
 * Filter out and inspect activities by IP address, user, username or particular activity.
@@ -56,7 +56,7 @@ You will be able to create a **Black  Access List** or **White Access List** to 
 
 Moreover, you can create your Custom login page and forget about automatic attacks to the default wp-login.php, which takes your attention and consumes a lot of server resources. If an attacker tries to access wp-login.php they will be blocked and get a 404 Error response.
 
-= Limit login attempts with log and export =
+= Log, filter out and export activities =
 
 WP Cerber tracks time, IP addresses and usernames for successful and failed login attempts, logins, logouts, password changes, blocked IP and actions taken by itself. Export them to a CSV file.
 
@@ -66,23 +66,24 @@ You can **hide WordPress dashboard** (/wp-admin/) when a user isn't logged in. I
 
 Massive botnet brute force attack? That's no longer a problem. **Citadel mode** will automatically be activated for awhile and prevent your site from making further attempts to log in with any username.
 
-= Antispam protection: reCAPTCHA for WooCommerce =
+= Antispam protection: invisible reCAPTCHA for WooCommerce =
 
 * WooCommerce login form
 * WooCommerce register form
 * WooCommerce lost password form
 
-= Antispam protection: reCAPTCHA for WordPress =
+= Antispam protection: invisible reCAPTCHA for WordPress =
 
 * WordPress login form
 * WordPress register form
 * WordPress lost password form
+* WordPress comment form
 
 **Documentation & Tutorials**
 
 * [How to set up notifications](http://wpcerber.com/wordpress-notifications-made-easy/)
 * [Push notifications with Pushbullet](http://wpcerber.com/wordpress-mobile-and-browser-notifications-pushbullet/)
-* [How to set up reCAPTCHA for WooCommerce](http://wpcerber.com/how-to-setup-recaptcha/)
+* [How to set up invisible reCAPTCHA for WooCommerce](http://wpcerber.com/how-to-setup-recaptcha/)
 * [Changing default plugin messages](http://wpcerber.com/wordpress-hooks/)
 * [Best alternatives to the Clef plugin](http://wpcerber.com/two-factor-authentication-plugins-for-wordpress/)
 * [Why reCAPTCHA does not protect WordPress from bots and brute-force attacks](http://wpcerber.com/why-recaptcha-does-not-protect-wordpress/)
@@ -126,9 +127,10 @@ Installing WP Cerber security plugin is the same as other WordPress plugins.
 
 **Important notes**
 
-1. If you want to test out plugin's features, do this from another computer and remove that computer's network from the White Access List. Cerber is smart enough to recognize "the boss".
-2. If you've set up the Custom login URL and you use some caching plugin like **W3 Total Cache** or **WP Super Cache**, you have to add a new Custom login URL to the list of pages not to cache.
-3. [Read this if your website is under CloudFlare](http://wpcerber.com/cloudflare-and-wordpress-cerber/)
+1. Before enabling invisible reCAPTCHA, you must get separate keys for invisible version. [How to enable reCAPTCHA](http://wpcerber.com/how-to-setup-recaptcha/).
+2. If you want to test out plugin's features, do this from another computer and remove that computer's network from the White Access List. Cerber is smart enough to recognize "the boss".
+3. If you've set up the Custom login URL and you use some caching plugin like **W3 Total Cache** or **WP Super Cache**, you have to add a new Custom login URL to the list of pages not to cache.
+4. [Read this if your website is under CloudFlare](http://wpcerber.com/cloudflare-and-wordpress-cerber/)
 
 The following steps are optional but they allow you to reinforce protection of your WordPress.
 
@@ -139,7 +141,7 @@ The following steps are optional but they allow you to reinforce protection of y
 5. If your website has a few experienced users, check 'Immediately block IP when attempting to login with a non-existent username'.
 6. Specify the list of prohibited usernames (logins) that legit users will never use. They will not be allowed to log in and register in any circumstances.
 7. Configure mobile and browser notifications via Pushbullet.
-8. Get keys and enable reCAPTCHA for password reset and registration forms (WooCommerce supported too).
+8. Obtain keys and enable invisible reCAPTCHA for password reset and registration forms (WooCommerce supported too).
 
 
 == Frequently Asked Questions ==
@@ -230,14 +232,25 @@ To get access to your dashboard you need to copy the WP Cerber Reset folder to t
 == Screenshots ==
 
 1. The Dashboard: Recently recorded important security events and recently locked out IP addresses.
-2. Use IP Access Lists to restrict to log in from a particular IP address or subnet (network). Additionally check for the activity of a particular entry.
-3. Check Activity List to know what is going on. You can see what happens and when it happened with a particular IP or username, when IP reaches the limit of login attempts and when it was blocked.
-4. Lockouts is a list of blocked IP addresses and subnets at the moment. You can see when lockout will expire. You can remove lockout for particular IP address.
-5. WP Cerber adds four new columns on the WordPress Users screen: Date of registration, Date of last login, Number of failed login attempts and Number of comments. To view the details just click on the appropriate cell.
-6. You can export and import security settings and IP Access Lists on the Tools screen.
-7. Beautiful widget for the dashboard to keep an eye on things. Get quick analytic with trends over 24 hours.
+2. WordPress activity log with filtering, export to CSV and powerful notifications. You can see what's going on right now, when an IP reaches the limit of login attempts and when it was blocked.
+3. Activity log filtered by login and specific type of activity. Export it or click Subscribe to be notified with each event.
+4. Detailed information about an IP address with WHOIS information.
+5. These settings allows you to customize the plugin according to your needs.
+6. White and Black IP access lists allow you to restrict access from a particular IP address, network or IP range.
+7. Hardening WordPress: disable REST API, XML-RPC and stop user enumeration.
+8. Powerful email, mobile and browser notifications for WordPress events.
+9. Stop spammer: visible/invisible reCAPTCHA for WooCommerce and WordPress forms - no spam comments anymore.
+10. You can export and import security settings and IP Access Lists on the Tools screen.
+11. Beautiful widget for the WP dashboard to keep an eye on things. Get quick analytic with trends over last 24 hours.
+12. WP Cerber adds four new columns on the WordPress Users screen: Date of registration, Date of last login, Number of failed login attempts and Number of comments. To get more information just click on the appropriate link.
+
 
 == Changelog ==
+
+= 4.7.7 =
+* New: invisible reCAPTCHA (classic, visible also available).
+* New: reCAPTCHA for comment forms. Works well as anti-spam tool.
+* Fixed bug: "Add network to the Black List" and "Add IP to the Black List" buttons on the Activity tab doesn't work in the Safari web browser.
 
 = 4.5 =
 * New: Instant mobile and browser notifications with Pushbullet.

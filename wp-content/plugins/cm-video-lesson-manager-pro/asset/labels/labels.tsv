@@ -1,0 +1,17 @@
+lesson	lesson	The "lesson" word.	General
+lessons	lessons	The "lessons" word.	General
+course	course	The "course" word.	General
+courses	courses	The "courses" word.	General
+course_description	Course description	Course description header.	General
+video	video	The "video" word.	General
+videos	videos	The "videos" word.	General
+videos_in_lesson	videos in lesson	Videos in lesson	General
+lesson_name	Lesson name	Lesson name.	General
+lesson_duration	Duration	Lesson duration.	General
+lesson_videos_num	Videos	Number of videos in lesson.	General
+lesson_description	Lesson description	Lesson description header.	General
+
+msg_access_denied	We are sorry, but you cannot view this lesson.	The message "Access denied".	Messages
+msg_lesson_not_found	Lesson not available.	The message "Lesson not available" for not found lessons.	Messages
+msg_no_videos	No videos.	The message "No videos".	Messages
+msg_no_lessons	No lessons.	No lessons message.	Messages

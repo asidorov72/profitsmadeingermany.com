@@ -579,5 +579,3 @@ class register_settings {
 <?php
 	}
 }
-
-new register_settings;

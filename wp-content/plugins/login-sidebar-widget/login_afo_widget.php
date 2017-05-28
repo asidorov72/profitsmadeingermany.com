@@ -7,7 +7,7 @@ class login_wid extends WP_Widget {
 		add_action( 'wp_head', array( $this, 'custom_styles_afo' ) );
 		parent::__construct(
 	 		'login_wid',
-			'Login Widget AFO',
+			'Login Widget',
 			array( 'description' => __( 'This is a simple login form in the widget.', 'login-sidebar-widget' ), )
 		);
 	 }
@@ -118,11 +118,11 @@ class login_wid extends WP_Widget {
 		<input type="hidden" name="redirect" value="<?php echo esc_url( $redirect ); ?>" />
 		<div class="log-form-group">
 			<label for="username"><?php _e('Username','login-sidebar-widget');?> </label>
-			<input type="text" name="user_username" required="required"/>
+			<input type="text" name="userusername" required="required"/>
 		</div>
 		<div class="log-form-group">
 			<label for="password"><?php _e('Password','login-sidebar-widget');?> </label>
-			<input type="password" name="user_password" required="required"/>
+			<input type="password" name="userpassword" required="required"/>
 		</div>
         
         <?php do_action('login_afo_form');?>
@@ -192,10 +192,10 @@ function login_validate(){
 		}
 		global $post;
 		
-		if($_POST['user_username'] != "" and $_POST['user_password'] != ""){
+		if($_POST['userusername'] != "" and $_POST['userpassword'] != ""){
 			$creds = array();
-			$creds['user_login'] = sanitize_text_field($_POST['user_username']);
-			$creds['user_password'] = $_POST['user_password'];
+			$creds['user_login'] = sanitize_text_field($_POST['userusername']);
+			$creds['user_password'] = $_POST['userpassword'];
 			
 			if(sanitize_text_field($_POST['remember']) == 'Yes'){
 				$remember = true;
@@ -221,7 +221,3 @@ function login_validate(){
 		}
 	}
 }
-
-add_action( 'widgets_init', create_function( '', 'register_widget( "login_wid" );' ) );
-
-add_action( 'init', 'login_validate' );

@@ -47,9 +47,9 @@ require_once( dirname( __FILE__ ) . '/cerber-tools.php' );
 	Display lockouts in dashboard for admins
 */
 function cerber_show_lockouts($args = array(), $echo = true){
-	global $wpdb;
+	global $wpdb, $wp_cerber;
 
-	cerber_block_garbage_collector();
+	$wp_cerber->deleteGarbage();
 
 	//$per_page = cerber_get_per_page();
 	if (!empty($args['per_page'])) $per_page = $args['per_page'];
@@ -390,16 +390,17 @@ function cerber_show_activity($args = array(), $echo = true){
 		$roles = $wp_roles->roles;
 
 		foreach ($rows as $row) {
-			/*/
-			if ($row->user_id && ($u = get_userdata($row->user_id))) {
-				//$u = get_userdata($row->user_id);
-				$name = '<a href="'.$base_url.'&filter_user='.$row->user_id.'">'.$u->display_name.'</a>';
-			}*/
+
+			$activity = $labels[ $row->activity ];
+			/*
+			if ($row->activity == 50 ) {
+				$activity .= ' <b>'.htmlspecialchars($row->user_login).'</b>';
+            }*/
+
 			if ( $row->user_id ) {
 				if ( isset( $user_cache[ $row->user_id ] ) ) {
 					$name = $user_cache[ $row->user_id ];
-				}
-				elseif ( $u = get_userdata( $row->user_id )) {
+				} elseif ( $u = get_userdata( $row->user_id ) ) {
 
 					if ( ! is_multisite() && $u->roles ) {
 						$r = array();
@@ -415,12 +416,12 @@ function cerber_show_activity($args = array(), $echo = true){
 						$avatar = get_avatar( $row->user_id, 32 );
 						$name   = '<table class="crb-avatar"><tr><td>' . $avatar . '</td><td>' . $name . '</td></tr></table>';
 					}
+				} else {
+					$name = '';
 				}
-				else $name = '';
 
 				$user_cache[ $row->user_id ] = $name;
-			}
-			else {
+			} else {
 				$name = '';
 			}
 
@@ -446,15 +447,13 @@ function cerber_show_activity($args = array(), $echo = true){
 			}
 			else $block='';
 
-
-			//cerber_ago_time
-			//$date = cerber_date($row->stamp);
 			if ( ! empty( $args['date'] ) && $args['date'] == 'ago' ) {
 				$date = cerber_ago_time( $row->stamp );
 			} else {
 				$date = cerber_date( $row->stamp );
 			}
-			$list[] = '<td><div class="act-icon ip-acl' . $acl . ' ' . $block . '" title="' . $tip . '"></div>' . $ip . '</td><td>' . $hostname . '</td><td>' . $date . '</td><td><span class="actv' . $row->activity . '">' . $labels[ $row->activity ] . '</span></td><td>' . $name . '</td><td>' . $username . '</td>';
+
+			$list[] = '<td><div class="act-icon ip-acl' . $acl . ' ' . $block . '" title="' . $tip . '"></div>' . $ip . '</td><td>' . $hostname . '</td><td>' . $date . '</td><td><span class="actv' . $row->activity . '">' . $activity . '</span></td><td>' . $name . '</td><td>' . $username . '</td>';
 		}
 
 		$titles = '<tr><th><div class="act-icon"></div>' . __( 'IP', 'wp-cerber' ) . '</th><th>' . __( 'Hostname', 'wp-cerber' ) . '</th><th>' . __( 'Date', 'wp-cerber' ) . '</th><th>' . __( 'Activity', 'wp-cerber' ) . '</th><th>' . __( 'Local User', 'wp-cerber' ) . '</th><th>' . __( 'Username used', 'wp-cerber' ) . '</th></tr>';
@@ -539,25 +538,17 @@ function cerber_activity_query($args = array()){
 	}
 	$ret[2] = $falist;
 
-	if (!empty($_GET['filter_ip'])) {
-		$filter = trim($_GET['filter_ip']);
-		/*if (strrchr($filter,'*')) {  // * means subnet, so we need LIKE
-			$where[] = $wpdb->prepare('log.ip LIKE %s',str_replace('*','%',$filter));
-			// TODO: use cerber_wildcard2range instead - convert into net range
-
-		}*/
-		//cerber_wildcard2range();
-		//else {
-			$range = cerber_any2range($filter);
-			if (is_array($range)){
-				$where[] = $wpdb->prepare( '(log.ip_long >= %d AND log.ip_long <= %d)', $range['begin'], $range['end'] );
-			}
-			elseif (cerber_is_ip_or_net($filter)) {
-				$where[] = $wpdb->prepare( 'log.ip = %s', $filter );
-				//$ip_extra = $filter;
-			}
-			else $where[] = "ip = 'produce-no-result'";
-		//}
+	if ( ! empty( $_GET['filter_ip'] ) ) {
+		$filter = trim( $_GET['filter_ip'] );
+		$range = cerber_any2range( $filter );
+		if ( is_array( $range ) ) {
+			$where[] = $wpdb->prepare( '(log.ip_long >= %d AND log.ip_long <= %d)', $range['begin'], $range['end'] );
+		} elseif ( cerber_is_ip_or_net( $filter ) ) {
+			$where[] = $wpdb->prepare( 'log.ip = %s', $filter );
+			//$ip_extra = $filter;
+		} else {
+			$where[] = "ip = 'produce-no-result'";
+		}
 		$ret[3] = $_GET['filter_ip'];
 	}
 
@@ -664,15 +655,15 @@ function cerber_ip_extra_view($ip){
 	if (!cerber_is_myip($ip) && !cerber_acl_check($ip)) {
 
 		if ( $network ) {
-			$net_button = '<button type="submit" value="' . $network . '" class="button button-primary cerber-button">';
+			$net_button = '<button type="submit" value="' . $network . '" name="add_acl_B" class="button button-primary cerber-button">';
 		} else {
 			$net_button = '<button disabled="disabled" class="button button-secondary cerber-button">';
 		}
 		$net_button .= '<span class="dashicons-before dashicons-networking"></span> ' . __( 'Add network to the Black List', 'wp-cerber' ) . '</button> ';
 
 		$form = '<form id="add-acl-black" action="" method="post">
-				<input type="hidden" name="add_acl_B" value="">
-				<button type="submit" value="'.$ip.'" class="button button-primary cerber-button"><span class="dashicons-before dashicons-desktop"></span> '.__('Add IP to the Black List','wp-cerber').'</button> '.
+				<!-- <input type="hidden" name="add_acl_B" value=""> -->
+				<button type="submit" value="'.$ip.'" name="add_acl_B" class="button button-primary cerber-button"><span class="dashicons-before dashicons-desktop"></span> '.__('Add IP to the Black List','wp-cerber').'</button> '.
 		        $net_button.
 		        wp_nonce_field('cerber_dashboard','cerber_nonce').
 		        '</form>';
@@ -706,6 +697,7 @@ function cerber_admin_menu() {
 
 	add_submenu_page( 'cerber-security', __( 'Cerber reCAPTCHA settings', 'wp-cerber' ), __( 'reCAPTCHA', 'wp-cerber' ), 'manage_options', 'cerber-recaptcha', 'cerber_recaptcha_page' );
 	add_submenu_page( 'cerber-security', __( 'Cerber tools', 'wp-cerber' ), __( 'Tools', 'wp-cerber' ), 'manage_options', 'cerber-tools', 'cerber_tools_page' );
+	
 }
 
 /*
@@ -1475,13 +1467,19 @@ function cerber_basement(){
 						return $(this).data('ip-id');
 					}
 				);
-				if (ip_list.length != 0) $.post(ajaxurl,{ action:'cerber_ajax', get_hostnames:ip_list.toArray() }, setHostNames);
-
+				if (ip_list.length != 0) {
+					$.post(ajaxurl, {
+						action: 'cerber_ajax',
+						get_hostnames: ip_list.toArray()
+					}, setHostNames);
+				}
 			}
 
+			/*
 			$('#add-acl-black').submit(function( event ) {
 				$(this).find('[name="add_acl_B"]').val($(this).find("button:focus").val());
 			});
+			*/
 			
 			$(".cerber-dismiss").click(function() {
 				$(this).closest('.cerber-msg').fadeOut(500);
